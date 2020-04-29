@@ -1,0 +1,44 @@
+{
+  "usersIfo": [
+    {
+      "first name": "Shay",
+      "last name": "Tepper",
+      "email": "shaytpr@gmail.com"
+    },
+    {
+      "first name": "Eliraz",
+      "last name": "Shor",
+      "email": "eliraz.shor@riskified.com"
+    },
+    {
+      "first name": "Shiran",
+      "last name": "Harush",
+      "email": "shiranhs93@gmail.com"
+    },
+    {
+      "first name": "Idit",
+      "last name": "Avidar",
+      "email": "idita485@gmail.com"
+    },
+    {
+      "first name": "Ayse",
+      "last name": "Buket",
+      "email": "aysebuketozkan@outlook.com"
+    },
+    {
+      "first name": "Efrat",
+      "last name": "Altar",
+      "email": "efrataltar@gmail.com"
+    },
+    {
+      "first name": "★",
+      "last name": "Keren",
+      "email": "keren@techtalent.co.il"
+    },
+    {
+      "first name": "Barak",
+      "last name": "David",
+      "email": "barakdavid6@gmail.com"
+    }
+  ]
+}
