@@ -1,5 +1,4 @@
 require('dotenv').config();
-process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 const nodemailer = require('nodemailer')
 
@@ -10,16 +9,20 @@ let transporter = nodemailer.createTransport({
         pass: process.env.PASSWORD
     }
 });
+process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
+
+
 let users = require("../cypress/fixtures/full-details.json");
-const sendmail1 = (item) =>{
+
+const sendMail = (item) =>{
     let mailOption = {
         from: process.env.EMAIL,
-        to: "itzhak27027@gmail.com",
-        subject: item["first-name"],
+        to: item["email"],
+        subject: `Hello ${item["first-name"]} my name is Itzhak hirschman and this is my rosome`,
         text: item["first-name"],
         attachments: [
             {
-                path: '../cypress/fixtures/full-details.json'
+                path: '../cypress/fixtures/Itzhak Hirschman CV .docx'
             }
         ]
     };
@@ -33,7 +36,7 @@ const sendmail1 = (item) =>{
     })
 
 }
-users.usersIfo.forEach(sendmail1)
+users.usersIfo.forEach(sendMail)
 
     
 
