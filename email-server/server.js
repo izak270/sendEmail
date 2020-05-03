@@ -35,7 +35,7 @@ const sendMail = (item) =>{
         }
     })
 
-}
+}   
 users.usersIfo.forEach(sendMail)
 
     

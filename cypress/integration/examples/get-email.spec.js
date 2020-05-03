@@ -1,42 +1,58 @@
 let usersIfo = []
 let userFullName = ""
+let profilesPath = []
+let numberOfUsers = 0
 
 describe('Get email', () => {
     Cypress.Cookies.preserveOnce('li_at', 'remember_token')
-
-    it.skip('getting all contact urls', () => {
-        cy.visit('https://www.linkedin.com/')
-        cy.get('.nav__button-secondary').click()
-        cy.get('#username').focus().type('izak270@gmail.com')
-        cy.get('#password').focus().type('Qazsedc1556')
-        cy.get('.btn__primary--large').click()
+    before(() => {
         cy.visit('https://www.linkedin.com/mynetwork/invite-connect/connections/')
-        for (let i = 0; i < 1; i++) {
+        cy.get('.t-18.t-black.t-normal').then(users => {
+            numberOfUsers = parseInt(users.text())
+            console.log(numberOfUsers);
+        })
+        cy.visit('https://www.linkedin.com/search/results/people/?facetNetwork=%5B%22F%22%5D&origin=FACETED_SEARCH')
+    })
+    it('getting all contact urls', () => {
+        // cy.visit('https://www.linkedin.com/')
+        // cy.get('.nav__button-secondary').click()
+        // cy.get('#username').focus().type('izak270@gmail.com')
+        // cy.get('#password').focus().type('Qazsedc1556')
+        // cy.get('.btn__primary--large').click()
+
+        for (let i = 0; i <= numberOfUsers/10; i++) {
             cy.get('li.list-style-none> * .mn-connection-card__picture').last().focus()
             cy.get('li.list-style-none> * .mn-connection-card__picture').first().focus()
             cy.get('li.list-style-none> * .mn-connection-card__picture').last().focus()
-            cy.get('li.list-style-none> * .mn-connection-card__picture').last().focus().wait(7000)
+            cy.get('li.list-style-none> * .mn-connection-card__picture').last().focus()
+            cy.wait(7000)
         }
         cy.get('li.list-style-none> * .mn-connection-card__picture')
             .each(($el) => {
                 cy.wrap($el)
-                    .invoke('attr', 'href')
+                    .should('have.attr', 'href')
                     .then(lid => {
-                        profiles.push(lid)
+                        profilesPath.push(lid)
                     })
             }).then(() => {
-                cy.writeFile('cypress/fixtures/profiles.json', { profiles })
+                console.log(profilesPath);
+                
+                cy.writeFile('cypress/fixtures/profiles-path.json', { profilesPath })
             })
 
     })
-    it('getting all contacts emails', () => {
-        cy.fixture('profiles.json').then((profiles) => {
-            for (let i = 0; i < profiles.profiles.length; i++) {
-                console.log(profiles.profiles[i]);
-                cy.visit('https://www.linkedin.com' + profiles.profiles[i], { failOnStatusCode: false });
+    it.skip('getting all contacts details', () => {
+        cy.fixture('profiles-path.json').then((profile) => {
+            for (let i = 0; i < profile.paths.length; i++) {
+                console.log(profile.paths[i]);
+                // cy.visit('https://www.linkedin.com/')
+                // cy.get('.nav__button-secondary').click()
+                // cy.get('#username').focus().type('izak270@gmail.com')
+                // cy.get('#password').focus().type('Qazsedc1556')
+                // cy.get('.btn__primary--large').click()
+                cy.visit('https://www.linkedin.com' + profile.paths[i], { failOnStatusCode: false });
                 cy.get('a[data-control-name=contact_see_more]').click()
-                cy.wait(2000)
-                cy.get('body').then((body) => {
+                cy.get('.artdeco-modal.artdeco-modal--layer-default', { timeout: 10000 }).then((body) => {
                     if (body.find('.ci-email a.pv-contact-info__contact-link').length > 0) {
                         cy.get('#pv-contact-info').then(userName => {
                             userFullName = userName.text()
@@ -53,7 +69,7 @@ describe('Get email', () => {
                         console.log('succses' + usersIfo);
                     }
                     else {
-                        console.log('fail' + usersIfo);
+                        console.log('no mail' + usersIfo);
                     }
                 });
             }
