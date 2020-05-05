@@ -17,7 +17,7 @@ const sendMail = (item) => {
     let mailOption = {
         from: process.env.EMAIL,
         to: item.email,
-        subject: `Hello ${item.firstName} my name is Itzhak hirschman and this is my rosome`,
+        subject: `Hello ${item.firstName} ...`,
         text: item.lastName,
         attachments: [
             {
