@@ -1,7 +1,8 @@
 Welcome to sendMails !!!
 
 
-0. you need to lower!! your security level on your gmail account in order for this to work on -"https://myaccount.google.com/lesssecureapps" and Allow less secure apps: On 
+0. you need to lower!! your security level on your gmail account in order for this to work on -"https://myaccount.google.com/lesssecureapps" and Allow less secure apps: On.
+
 if you afraid you can open another account.
 1. npm install
 2. Make a file .env (to keep your personal data) inside of email-server directory
