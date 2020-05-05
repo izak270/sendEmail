@@ -18,18 +18,8 @@ const sendMail = (item) => {
     let mailOption = {
         from: process.env.EMAIL,
         to: item.email,
-        subject: `Hello ${item.firstName}-Itzhak Hirschman CV`,
-        text:
-            `My name is Itzhak Hirschman and I would like to inform you that this email was sent using a script I wrote (with node.js) 
-        that automatically pulled out your email address from my Linkedin account and sent you this mail.
-        You can take a look at the script in this link: 'https://github.com/izak270/sendEmail'
-
-        I'm looking for a career opportunity as a Junior backend or frontend developer.
-        I'll be grateful If you can assist me in distributing my resume to others who are looking for a creative and very passionate web 
-        developer.
-        
-        BR and stay safe,
-        Itzhak Hirschman.`,
+        subject: `Hello ${item.firstName} ...`,
+        text: item.lastName,
         attachments: [
             {
                 path: process.env.FILEPATH
@@ -51,7 +41,7 @@ const sendMail = (item) => {
 let i = 0
 function sendSlow() {
     console.log(users.usersIfo[i]);
-    // sendMail(users.usersIfo[i])
+    sendMail(users.usersIfo[i])
     i++;
     if (i < users.usersIfo.length) {
         setTimeout(sendSlow, 5000);
