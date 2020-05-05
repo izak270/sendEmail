@@ -1,1 +1,3 @@
-node_mudoles/
+node_modules/
+/puppeteer/details.json
+.env
