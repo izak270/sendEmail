@@ -1,5 +1,4 @@
 const puppeteer = require('puppeteer');
-const usersPaths = require("./profiles-path.json");
 const fs = require('fs');
 require('dotenv').config();
 
@@ -24,7 +23,7 @@ require('dotenv').config();
 
     const userPath = []
     const pagesNumber = await page.evaluate(() => document.querySelectorAll('li.artdeco-pagination__indicator')['9'].textContent);
-    for (let i = 0; i <= pagesNumber - 2; i++) {
+    for (let i = 0; i <= pagesNumber - pagesNumber; i++) {
 
         const data = await page.evaluate(
             () => Array.from(
@@ -41,9 +40,10 @@ require('dotenv').config();
         });        
     }
     fs.writeFileSync('profiles-path.json', JSON.stringify({ userPath }));
+    const usersPaths = require("./profiles-path.json");
 
     const usersIfo = []
-    for (let user of usersPaths.profilesPath) {
+    for (let user of usersPaths.userPath) {
         await page.goto('https://www.linkedin.com' + user + 'detail/contact-info/');
         const checkUserFullName = await page.evaluate(() => document.querySelector('#pv-contact-info'));
         const checkIfExists = await page.evaluate(() => document.querySelector('.ci-email a.pv-contact-info__contact-link'));

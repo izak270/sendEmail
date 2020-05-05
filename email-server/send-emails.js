@@ -11,7 +11,7 @@ let transporter = nodemailer.createTransport({
 });
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-let users = require("./test.json");
+let users = require("./user-details.json");
 let sentEmails = 0
 const sendMail = (item) => {
     let mailOption = {

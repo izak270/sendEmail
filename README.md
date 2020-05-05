@@ -1,7 +1,7 @@
 Welcome to sendMails !!!
 steps
 1. npm install
-2. Make a file .env (to keep your personal data)
+2. Make a file .env (to keep your personal data) inside of email-server directory
 3. Edit .env to look like this:
 PASSWORD=//your email password
 EMAIL=//your mail address
