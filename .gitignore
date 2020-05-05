@@ -1,4 +1,7 @@
 node_modules/
-/puppeteer/details.json
 .env
 cypress/
+my-profiles-path.json
+my-details.json
+test.json
+Itzhak-Hirschman-CV.docx
