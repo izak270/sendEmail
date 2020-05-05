@@ -11,30 +11,29 @@ let transporter = nodemailer.createTransport({
 });
 process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
-
-let users = require("../cypress/fixtures/full-details.json");
-
+let users = require("./test.json");
+let sentEmails = 0
 const sendMail = (item) =>{
     let mailOption = {
         from: process.env.EMAIL,
-        to: item["email"],
-        subject: `Hello ${item["first-name"]} my name is Itzhak hirschman and this is my rosome`,
-        text: item["first-name"],
+        to: item.email,
+        subject: `Hello ${item.firstName} my name is Itzhak hirschman and this is my rosome`,
+        text: item.lastName,
         attachments: [
             {
-                path: '../cypress/fixtures/Itzhak Hirschman CV .docx'
+                path: './Itzhak Hirschman CV .docx'
             }
         ]
     };
     transporter.sendMail(mailOption, function (err, data) {        
         if (err) {
-            console.log('error occurd',err);
+            console.log('error occurred',err);
         }
         else {
-            console.log('good');  
+            sentEmails++
+            console.log(`email number ${sentEmails} sent`);  
         }
     })
-
 }   
 users.usersIfo.forEach(sendMail)
 
