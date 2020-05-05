@@ -1,3 +1,4 @@
 node_modules/
 /puppeteer/details.json
 .env
+cypress/
