@@ -23,7 +23,7 @@ require('dotenv').config();
 
     const userPath = []
     const pagesNumber = await page.evaluate(() => document.querySelectorAll('li.artdeco-pagination__indicator')['9'].textContent);
-    for (let i = 0; i <= pagesNumber - pagesNumber; i++) {
+    for (let i = 0; i <= pagesNumber; i++) {
 
         const data = await page.evaluate(
             () => Array.from(
@@ -59,6 +59,6 @@ require('dotenv').config();
         }
         console.log(usersIfo.length);
     };
-    fs.writeFileSync('details.json', JSON.stringify({ usersIfo }));
+    fs.writeFileSync('user-details.json', JSON.stringify({ usersIfo }));
     await browser.close();
 })();
