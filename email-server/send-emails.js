@@ -13,7 +13,7 @@ process.env["NODE_TLS_REJECT_UNAUTHORIZED"] = 0;
 
 let users = require("./test.json");
 let sentEmails = 0
-const sendMail = (item) =>{
+const sendMail = (item) => {
     let mailOption = {
         from: process.env.EMAIL,
         to: item.email,
@@ -21,21 +21,21 @@ const sendMail = (item) =>{
         text: item.lastName,
         attachments: [
             {
-                path: './Itzhak Hirschman CV .docx'
+                path: process.env.FILEPATH
             }
         ]
     };
-    transporter.sendMail(mailOption, function (err, data) {        
+    transporter.sendMail(mailOption, function (err, data) {
         if (err) {
-            console.log('error occurred',err);
+            console.log('error occurred', err);
         }
         else {
             sentEmails++
-            console.log(`email number ${sentEmails} sent`);  
+            console.log(`email number ${sentEmails} sent`);
         }
     })
-}   
+}
 users.usersIfo.forEach(sendMail)
 
-    
+
 
