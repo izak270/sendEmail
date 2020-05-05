@@ -1,5 +1,6 @@
 Welcome to sendMails !!!
-steps
+
+
 0. you need to lower!! your security level on your gmail account in order for this to work on -"https://myaccount.google.com/lesssecureapps" and Allow less secure apps: On 
 if you afraid you can open another account.
 1. npm install
