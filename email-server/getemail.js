@@ -1,21 +1,47 @@
 const puppeteer = require('puppeteer');
 const usersPaths = require("./profiles-path.json");
 const fs = require('fs');
-
-
+require('dotenv').config();
 
 
 (async () => {
     const browser = await puppeteer.launch({
-        headless: true
+        headless: true,
+        slowMo: 200
     });
     const page = await browser.newPage();
 
     await page.setCookie({
         'name': 'li_at',
-        'value': 'AQEDAS1sMQIBrti0AAABceCL2UoAAAFyBJhdSlYACFpcFqu1t1N38M3aYaT4ADwdzRsMPyi6-Tj4hj9taSTpHgbXa7jqaOYh0yNI8n6rlC2q5QZ64CavjL8SKo1slibDMAVcJGyT5mcXrx3W3miLY92j',
+        'value': process.env.COOKIE,
         'domain': '.www.linkedin.com'
     })
+
+    await page.goto('https://www.linkedin.com/search/results/people/?facetNetwork=%5B%22F%22%5D&origin=FACETED_SEARCH');
+    await page.evaluate(() => {
+        window.scrollBy(0, window.innerHeight);
+    });
+
+    const userPath = []
+    const pagesNumber = await page.evaluate(() => document.querySelectorAll('li.artdeco-pagination__indicator')['9'].textContent);
+    for (let i = 0; i <= pagesNumber - 2; i++) {
+
+        const data = await page.evaluate(
+            () => Array.from(
+                document.querySelectorAll('.search-result__image-wrapper a[data-control-name=search_srp_result]'),
+                a => a.getAttribute('href')
+            )
+        );
+        for (let path of data) {
+            userPath.push(path)
+        }
+        'https://www.linkedin.com/search/results/people/?facetNetwork=%5B%22F%22%5D&origin=FACETED_SEARCH&page=' + (i + 2)
+        await page.evaluate(() => {
+            window.scrollBy(0, window.innerHeight);
+        });        
+    }
+    fs.writeFileSync('profiles-path.json', JSON.stringify({ userPath }));
+
     const usersIfo = []
     for (let user of usersPaths.profilesPath) {
         await page.goto('https://www.linkedin.com' + user + 'detail/contact-info/');
